@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use std::iter::zip;
 
 pub(crate) const FILE_PATH: &str = "input/day01.txt";
+#[allow(unused)]
 pub(crate) const FILE_PATH_SAMPLE: &str = "input/day01_sample.txt";
 
 pub(crate) fn part1(file_path: &str) -> u32 {
