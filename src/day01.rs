@@ -1,60 +1,44 @@
+use crate::util::read_input;
 use std::collections::HashMap;
-use std::fs;
 use std::iter::zip;
 
+const FILE_PATH: &str = "input/day01.txt";
+
 pub(crate) fn part1() -> u32 {
-    let file_path = "input/day01.txt";
-    let contents = fs::read_to_string(file_path).unwrap();
-    let mut left: Vec<i32> = Vec::new();
-    let mut right: Vec<i32> = Vec::new();
+    let mut left: Vec<u32> = Vec::new();
+    let mut right: Vec<u32> = Vec::new();
 
-    for line in contents.lines() {
+    for line in read_input(FILE_PATH).lines().filter(|x| !x.is_empty()) {
         let mut iter = line.split_ascii_whitespace();
-        let l = iter.next();
-        if l.is_none() {
-            continue;
-        }
-        insert_sorted(&mut left, l.unwrap().parse().unwrap());
-        assert!(left.is_sorted());
-
-        let r: i32 = iter.next().unwrap().parse().unwrap();
-        insert_sorted(&mut right, r);
-        assert!(right.is_sorted());
-        assert_eq!(left.len(), right.len());
+        insert_sorted(&mut left, next_u32(&mut iter));
+        insert_sorted(&mut right, next_u32(&mut iter));
     }
-    assert_eq!(left.len(), right.len());
-    let result: u32 = zip(left, right).map(|(a, b)| a.abs_diff(b)).sum();
-
-    result
+    zip(left, right).map(|(a, b)| a.abs_diff(b)).sum()
 }
 
 pub(crate) fn part2() -> u32 {
-    let file_path = "input/day01.txt";
-    let contents = fs::read_to_string(file_path).unwrap();
     let mut left: HashMap<u32, u32> = HashMap::new();
     let mut right: HashMap<u32, u32> = HashMap::new();
 
-
-    for line in contents.lines() {
+    for line in read_input(FILE_PATH).lines().filter(|x| !x.is_empty()) {
         let mut iter = line.split_ascii_whitespace();
-        let l = iter.next();
-        if l.is_none() {
-            continue;
-        }
-        let l: u32 = l.unwrap().parse().unwrap();
-        left.entry(l).and_modify(|x| *x += 1).or_insert(1);
-
-        let r: u32 = iter.next().unwrap().parse().unwrap();
-        right.entry(r).and_modify(|x| *x += 1).or_insert(1);
+        insert_plus_one(&mut left, next_u32(&mut iter));
+        insert_plus_one(&mut right, next_u32(&mut iter));
     }
-    let result: u32 = left.iter()
+    left.iter()
         .map(|(l, lcount)| l * lcount * right.get(l).unwrap_or(&0))
-        .sum();
-    result
+        .sum()
 }
 
+fn next_u32<'a, I: Iterator<Item = &'a str>>(mut iter: I) -> u32 {
+    iter.next().unwrap().parse().unwrap()
+}
 
-fn insert_sorted(vec: &mut Vec<i32>, element: i32) {
+fn insert_plus_one(map: &mut HashMap<u32, u32>, key: u32) {
+    map.entry(key).and_modify(|x| *x += 1).or_insert(1);
+}
+
+fn insert_sorted<T: PartialOrd>(vec: &mut Vec<T>, element: T) {
     if vec.is_empty() || vec[vec.len() - 1] <= element {
         return vec.push(element);
     }
