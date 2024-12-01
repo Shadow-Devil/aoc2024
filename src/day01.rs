@@ -1,16 +1,18 @@
 use crate::util::read_input;
 use std::collections::HashMap;
 use std::iter::zip;
+use crate::read_lines;
 
 pub(crate) const FILE_PATH: &str = "input/day01.txt";
 #[allow(unused)]
 pub(crate) const FILE_PATH_SAMPLE: &str = "input/day01_sample.txt";
 
+
 pub(crate) fn part1(file_path: &str) -> u32 {
     let mut left: Vec<u32> = Vec::new();
     let mut right: Vec<u32> = Vec::new();
 
-    for line in read_input(file_path).lines().filter(|x| !x.is_empty()) {
+    for line in read_lines!(file_path) {
         let mut iter = line.split_ascii_whitespace();
         insert_sorted(&mut left, next_u32(&mut iter));
         insert_sorted(&mut right, next_u32(&mut iter));
@@ -18,11 +20,12 @@ pub(crate) fn part1(file_path: &str) -> u32 {
     zip(left, right).map(|(a, b)| a.abs_diff(b)).sum()
 }
 
+
 pub(crate) fn part2(file_path: &str) -> u32 {
     let mut left: HashMap<u32, u32> = HashMap::new();
     let mut right: HashMap<u32, u32> = HashMap::new();
 
-    for line in read_input(file_path).lines().filter(|x| !x.is_empty()) {
+    for line in read_lines!(file_path) {
         let mut iter = line.split_ascii_whitespace();
         insert_plus_one(&mut left, next_u32(&mut iter));
         insert_plus_one(&mut right, next_u32(&mut iter));
@@ -31,6 +34,7 @@ pub(crate) fn part2(file_path: &str) -> u32 {
         .map(|(l, lcount)| l * lcount * right.get(l).unwrap_or(&0))
         .sum()
 }
+
 
 fn next_u32<'a, I: Iterator<Item = &'a str>>(mut iter: I) -> u32 {
     iter.next().unwrap().parse().unwrap()
