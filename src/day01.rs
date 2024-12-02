@@ -1,12 +1,11 @@
-use crate::util::read_input;
 use crate::read_lines_u32;
+use crate::util::read_input;
 use std::collections::HashMap;
 use std::iter::zip;
 
 pub(crate) const FILE_PATH: &str = "input/day01.txt";
 #[allow(unused)]
 pub(crate) const FILE_PATH_SAMPLE: &str = "input/day01_sample.txt";
-
 
 pub(crate) fn part1(file_path: &str) -> u32 {
     let mut left: Vec<u32> = Vec::new();
@@ -18,7 +17,6 @@ pub(crate) fn part1(file_path: &str) -> u32 {
     }
     zip(left, right).map(|(a, b)| a.abs_diff(b)).sum()
 }
-
 
 pub(crate) fn part2(file_path: &str) -> u32 {
     let mut left: HashMap<u32, u32> = HashMap::new();

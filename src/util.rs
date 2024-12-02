@@ -30,7 +30,8 @@ pub(crate) trait Countable: Iterator {
     fn count_all<F>(self, f: F) -> usize
     where
         Self: Sized,
-        F: FnMut(Self::Item) -> bool {
+        F: FnMut(Self::Item) -> bool,
+    {
         self.map(f).filter(|&x| x).count()
     }
 }
