@@ -1,7 +1,7 @@
-use crate::util::read_input;
+use crate::read_lines;
+use crate::util::{next_u32, read_input};
 use std::collections::HashMap;
 use std::iter::zip;
-use crate::read_lines;
 
 pub(crate) const FILE_PATH: &str = "input/day01.txt";
 #[allow(unused)]
@@ -33,11 +33,6 @@ pub(crate) fn part2(file_path: &str) -> u32 {
     left.iter()
         .map(|(l, lcount)| l * lcount * right.get(l).unwrap_or(&0))
         .sum()
-}
-
-
-fn next_u32<'a, I: Iterator<Item = &'a str>>(mut iter: I) -> u32 {
-    iter.next().unwrap().parse().unwrap()
 }
 
 fn insert_plus_one(map: &mut HashMap<u32, u32>, key: u32) {
