@@ -55,3 +55,19 @@ pub(crate) fn part2(file_path: &str) -> u32 {
     }
     result
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_part1() {
+        assert_eq!(part1(FILE_PATH_SAMPLE), 2);
+        assert_eq!(part1(FILE_PATH), 534);
+    }
+    #[test]
+    fn check_part2() {
+        assert_eq!(part2(FILE_PATH_SAMPLE), 4);
+        assert_eq!(part2(FILE_PATH), 577);
+    }
+}
