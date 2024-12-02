@@ -1,5 +1,5 @@
-use crate::read_lines;
-use crate::util::{next_u32, read_input};
+use crate::util::read_input;
+use crate::read_lines_u32;
 use std::collections::HashMap;
 use std::iter::zip;
 
@@ -12,10 +12,9 @@ pub(crate) fn part1(file_path: &str) -> u32 {
     let mut left: Vec<u32> = Vec::new();
     let mut right: Vec<u32> = Vec::new();
 
-    for line in read_lines!(file_path) {
-        let mut iter = line.split_ascii_whitespace();
-        insert_sorted(&mut left, next_u32(&mut iter));
-        insert_sorted(&mut right, next_u32(&mut iter));
+    for mut iter in read_lines_u32!(file_path) {
+        insert_sorted(&mut left, iter.next().unwrap());
+        insert_sorted(&mut right, iter.next().unwrap());
     }
     zip(left, right).map(|(a, b)| a.abs_diff(b)).sum()
 }
@@ -25,13 +24,12 @@ pub(crate) fn part2(file_path: &str) -> u32 {
     let mut left: HashMap<u32, u32> = HashMap::new();
     let mut right: HashMap<u32, u32> = HashMap::new();
 
-    for line in read_lines!(file_path) {
-        let mut iter = line.split_ascii_whitespace();
-        insert_plus_one(&mut left, next_u32(&mut iter));
-        insert_plus_one(&mut right, next_u32(&mut iter));
+    for mut iter in read_lines_u32!(file_path) {
+        insert_plus_one(&mut left, iter.next().unwrap());
+        insert_plus_one(&mut right, iter.next().unwrap());
     }
     left.iter()
-        .map(|(l, lcount)| l * lcount * right.get(l).unwrap_or(&0))
+        .map(|(l, &lcount)| l * lcount * right.get(l).unwrap_or(&0))
         .sum()
 }
 
