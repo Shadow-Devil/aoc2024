@@ -4,6 +4,10 @@ pub(crate) fn read_input(file_path: &str) -> String {
     fs::read_to_string(file_path).unwrap()
 }
 
+pub(crate) fn read_no_newline(file_path: &str) -> String {
+    read_input(file_path).replace("\n", "")
+}
+
 #[macro_export]
 macro_rules! read_lines {
     ($l:tt) => {

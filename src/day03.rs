@@ -1,6 +1,6 @@
+use crate::util::read_no_newline;
 use lazy_static::lazy_static;
 use regex::{Match, Regex};
-use std::fs;
 
 #[allow(unused)]
 pub(crate) const FILE_PATH: &str = "input/day03.txt";
@@ -12,18 +12,15 @@ lazy_static! {
 }
 
 pub(crate) fn part1(file_path: &str) -> u32 {
-    let content = fs::read_to_string(file_path).unwrap().replace("\n", "");
-    solve(&content)
+    solve(&read_no_newline(file_path))
 }
 
 pub(crate) fn part2(file_path: &str) -> u32 {
-    let mut result: u32 = 0;
-    let content = fs::read_to_string(file_path).unwrap().replace("\n", "");
-    let mut rest = &*content;
-    result += solve_part2(&mut rest);
+    let mut result = 0;
+    let mut rest = &*read_no_newline(file_path);
     while !rest.is_empty() {
-        rest = rest.split_once("do()").map_or("", |x| x.1);
         result += solve_part2(&mut rest);
+        rest = rest.split_once("do()").map_or("", |x| x.1);
     }
     result
 }
@@ -32,9 +29,9 @@ fn solve(line: &str) -> u32 {
     PATTERN
         .captures_iter(line)
         .filter_map(|x| {
-            parse_u32(x.get(1)).and_then(|z: u32| parse_u32(x.get(2)).map(|z2: u32| z2 * z))
+            parse_u32(x.get(1)).and_then(|z| parse_u32(x.get(2)).map(|z2| z2 * z))
         })
-        .sum::<u32>()
+        .sum()
 }
 
 fn parse_u32(x: Option<Match>) -> Option<u32> {
