@@ -11,39 +11,40 @@ lazy_static! {
     static ref PATTERN: Regex = Regex::new(r"mul\((\d+),(\d+)\)").unwrap();
 }
 
-
 pub(crate) fn part1(file_path: &str) -> u32 {
     let content = fs::read_to_string(file_path).unwrap().replace("\n", "");
     solve(&content)
-}
-
-fn solve(line: &str) -> u32
-{
-    PATTERN.captures_iter(line).filter_map(|x|
-        parse_u32(x.get(1))
-            .and_then(|z: u32| parse_u32(x.get(2))
-                .map(|z2: u32| z2 * z))
-    ).sum::<u32>()
-}
-
-fn parse_u32(x: Option<Match>) -> Option<u32> {
-    x.and_then(|y| y.as_str().parse().ok())
 }
 
 pub(crate) fn part2(file_path: &str) -> u32 {
     let mut result: u32 = 0;
     let content = fs::read_to_string(file_path).unwrap().replace("\n", "");
     let mut rest = &*content;
-    let (a, b) = rest.split_once("don't()").unwrap_or((rest, ""));
-    result += solve(a);
-    rest = b;
+    result += solve_part2(&mut rest);
     while !rest.is_empty() {
         rest = rest.split_once("do()").map_or("", |x| x.1);
-        let (a, b) = rest.split_once("don't()").unwrap_or((rest, ""));
-        result += solve(a);
-        rest = b;
+        result += solve_part2(&mut rest);
     }
     result
+}
+
+fn solve(line: &str) -> u32 {
+    PATTERN
+        .captures_iter(line)
+        .filter_map(|x| {
+            parse_u32(x.get(1)).and_then(|z: u32| parse_u32(x.get(2)).map(|z2: u32| z2 * z))
+        })
+        .sum::<u32>()
+}
+
+fn parse_u32(x: Option<Match>) -> Option<u32> {
+    x.and_then(|y| y.as_str().parse().ok())
+}
+
+fn solve_part2(rest: &mut &str) -> u32 {
+    let (a, b) = rest.split_once("don't()").unwrap_or((rest, ""));
+    *rest = b;
+    solve(a)
 }
 
 #[cfg(test)]
