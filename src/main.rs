@@ -8,17 +8,31 @@ mod day05;
 mod util;
 
 fn main() {
-    let now = Instant::now();
+    let now_all = Instant::now();
+    let mut now = Instant::now();
+    println!("Day01 Part1: {} ({}ms)", day01::part1(day01::FILE_PATH), now.elapsed().as_millis());
+    now = Instant::now();
+    println!("Day01 Part2: {} ({}ms)", day01::part2(day01::FILE_PATH), now.elapsed().as_millis());
 
-    println!("Day01 Part1: {}", day01::part1(day01::FILE_PATH));
-    println!("Day01 Part2: {}", day01::part2(day01::FILE_PATH));
-    println!("Day02 Part1: {}", day02::part1(day02::FILE_PATH));
-    println!("Day02 Part2: {}", day02::part2(day02::FILE_PATH));
-    println!("Day03 Part1: {}", day03::part1(day03::FILE_PATH));
-    println!("Day03 Part2: {}", day03::part2(day03::FILE_PATH));
-    println!("Day04 Part1: {}", day04::part1(day04::FILE_PATH));
-    println!("Day04 Part2: {}", day04::part2(day04::FILE_PATH));
-    println!("Day05 Part1: {}", day05::part1(day05::FILE_PATH));
-    println!("Day05 Part2: {}", day05::part2(day05::FILE_PATH));
-    println!("Took {}ms", now.elapsed().as_millis());
+    now = Instant::now();
+    println!("Day02 Part1: {} ({}ms)", day02::part1(day02::FILE_PATH), now.elapsed().as_millis());
+    now = Instant::now();
+    println!("Day02 Part2: {} ({}ms)", day02::part2(day02::FILE_PATH), now.elapsed().as_millis());
+    
+    now = Instant::now();
+    println!("Day03 Part1: {} ({}ms)", day03::part1(day03::FILE_PATH), now.elapsed().as_millis());
+    now = Instant::now();
+    println!("Day03 Part2: {} ({}ms)", day03::part2(day03::FILE_PATH), now.elapsed().as_millis());
+    
+    now = Instant::now();
+    println!("Day04 Part1: {} ({}ms)", day04::part1(day04::FILE_PATH), now.elapsed().as_millis());
+    now = Instant::now();
+    println!("Day04 Part2: {} ({}ms)", day04::part2(day04::FILE_PATH), now.elapsed().as_millis());
+    
+    now = Instant::now();
+    println!("Day05 Part1: {} ({}ms)", day05::part1(day05::FILE_PATH), now.elapsed().as_millis());
+    now = Instant::now();
+    println!("Day05 Part2: {} ({}ms)", day05::part2(day05::FILE_PATH), now.elapsed().as_millis());
+    
+    println!("Overall {}ms", now_all.elapsed().as_millis())
 }
