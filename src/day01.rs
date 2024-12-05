@@ -35,15 +35,10 @@ fn insert_plus_one(map: &mut HashMap<u32, u32>, key: u32) {
     map.entry(key).and_modify(|x| *x += 1).or_insert(1);
 }
 
-fn insert_sorted<T: PartialOrd>(vec: &mut Vec<T>, element: T) {
-    if vec.is_empty() || vec[vec.len() - 1] <= element {
-        return vec.push(element);
-    }
-    for i in 0..vec.len() {
-        if element < vec[i] {
-            vec.insert(i, element);
-            break;
-        }
+fn insert_sorted<T: Ord>(vec: &mut Vec<T>, element: T) {
+    match vec.binary_search(&element) {
+        Ok(x) => vec.insert(x, element),
+        Err(x) => vec.insert(x, element)
     }
 }
 
