@@ -4,6 +4,7 @@ mod day01;
 mod day02;
 mod day03;
 mod day04;
+mod day05;
 mod util;
 
 fn main() {
@@ -17,5 +18,7 @@ fn main() {
     println!("Day03 Part2: {}", day03::part2(day03::FILE_PATH));
     println!("Day04 Part1: {}", day04::part1(day04::FILE_PATH));
     println!("Day04 Part2: {}", day04::part2(day04::FILE_PATH));
+    println!("Day05 Part1: {}", day05::part1(day05::FILE_PATH));
+    println!("Day05 Part2: {}", day05::part2(day05::FILE_PATH));
     println!("Took {}ms", now.elapsed().as_millis());
 }
