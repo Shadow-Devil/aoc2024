@@ -1,5 +1,4 @@
 use crate::util::read_input;
-use lazy_static::lazy_static;
 use std::collections::{HashMap, HashSet};
 use std::iter::Iterator;
 
@@ -8,30 +7,29 @@ pub(crate) const FILE_PATH: &str = "input/day05.txt";
 #[allow(unused)]
 pub(crate) const FILE_PATH_SAMPLE: &str = "input/day05_sample.txt";
 
-lazy_static! {
-    static ref MAPPING: HashMap<char, u32> =
-        HashMap::from([('X', 1), ('M', 2), ('A', 3), ('S', 4),]);
-}
-
 pub(crate) fn part1(file_path: &str) -> u32 {
-    let content = read_input(file_path);
-    if let [page_order_rules, updates] = content.split("\n\n").collect::<Vec<&str>>()[..] {
+    if let [page_order_rules, updates] =
+        read_input(file_path).split("\n\n").collect::<Vec<&str>>()[..]
+    {
         let ordering = parse_ordering(page_order_rules);
-        let mut result = 0;
-        for update in updates.lines() {
-            let prints: Vec<u32> = update.split(",").map(|x| x.parse().unwrap()).collect();
-            if is_ordered(&ordering, &prints) {
-                result += prints[prints.len() / 2]
-            }
-        }
-        result
+        updates
+            .lines()
+            .map(|update| {
+                let prints: Vec<u32> = update.split(",").map(|x| x.parse().unwrap()).collect();
+                if is_ordered(&ordering, &prints) {
+                    prints[prints.len() / 2]
+                } else {
+                    0
+                }
+            })
+            .sum()
     } else {
         unreachable!()
     }
 }
 
 fn is_ordered(ordering: &HashMap<u32, HashSet<u32>>, prints: &[u32]) -> bool {
-    let mut already_seen: HashSet<u32> = HashSet::with_capacity(prints.len());
+    let mut already_seen = HashSet::with_capacity(prints.len());
     for print in prints.iter() {
         if !ordering.get(print).map_or(true, |y| {
             y.iter()
@@ -45,43 +43,48 @@ fn is_ordered(ordering: &HashMap<u32, HashSet<u32>>, prints: &[u32]) -> bool {
 }
 
 pub(crate) fn part2(file_path: &str) -> u32 {
-    let content = read_input(file_path);
-    if let [page_order_rules, updates] = content.split("\n\n").collect::<Vec<&str>>()[..] {
+    if let [page_order_rules, updates] =
+        read_input(file_path).split("\n\n").collect::<Vec<&str>>()[..]
+    {
         let ordering = parse_ordering(page_order_rules);
         let mut result = 0;
         for update in updates.lines() {
-            let mut prints: Vec<u32> = update.split(",").map(|x| x.parse().unwrap()).collect();
+            let prints: Vec<u32> = update.split(",").map(|x| x.parse().unwrap()).collect();
 
-            if !is_ordered(&ordering, &prints) {
-                let mut ordered_prints: Vec<u32> = Vec::with_capacity(prints.len());
-                let mut i = 0;
-                while !prints.is_empty() {
-                    let current = prints[i];
-                    let mut can_place = true;
-                    for (&a, xs) in ordering.iter() {
-                        if prints.contains(&a) && a != current && xs.contains(&current) {
-                            can_place = false;
-                            break;
-                        }
-                    }
-                    if can_place {
-                        ordered_prints.push(current);
-                        prints.remove(i);
-                        i = 0;
-                    } else {
-                        i += 1;
-                        if i >= prints.len() {
-                            i = 0
-                        }
-                    }
-                }
-                result += ordered_prints[ordered_prints.len() / 2];
+            if is_ordered(&ordering, &prints) {
+                continue;
             }
+
+            let ordered_prints = fix_ordering(&ordering, prints);
+            result += ordered_prints[ordered_prints.len() / 2];
         }
         result
     } else {
         unreachable!()
     }
+}
+
+fn fix_ordering(ordering: &HashMap<u32, HashSet<u32>>, mut prints: Vec<u32>) -> Vec<u32> {
+    let mut ordered_prints: Vec<u32> = Vec::with_capacity(prints.len());
+    let mut i = 0;
+    while !prints.is_empty() {
+        let current = prints[i];
+        let mut can_place = true;
+        for (&a, xs) in ordering.iter() {
+            if prints.contains(&a) && a != current && xs.contains(&current) {
+                can_place = false;
+                break;
+            }
+        }
+        if can_place {
+            ordered_prints.push(current);
+            prints.remove(i);
+            i = 0;
+        } else {
+            i = (i + 1) % prints.len();
+        }
+    }
+    ordered_prints
 }
 
 fn parse_ordering(page_order_rules: &str) -> HashMap<u32, HashSet<u32>> {
