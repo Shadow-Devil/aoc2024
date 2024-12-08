@@ -6,6 +6,7 @@ mod day03;
 mod day04;
 mod day05;
 mod day06;
+mod day07;
 mod util;
 
 fn main() {
@@ -38,7 +39,14 @@ fn main() {
     now = Instant::now();
     println!("Day06 Part1: {} ({}ms)", day06::part1(day06::FILE_PATH), now.elapsed().as_millis());
     now = Instant::now();
-    println!("Day06 Part2: {} ({}ms)", day06::part2(day06::FILE_PATH), now.elapsed().as_millis());
+    //Slow (20 sec in dev run, 2 sec in release)
+    //println!("Day06 Part2: {} ({}ms)", day06::part2(day06::FILE_PATH), now.elapsed().as_millis());
+    
+    now = Instant::now();
+    println!("Day07 Part1: {} ({}ms)", day07::part1(day07::FILE_PATH), now.elapsed().as_millis());
+    now = Instant::now();
+    println!("Day07 Part2: {} ({}ms)", day07::part2(day07::FILE_PATH), now.elapsed().as_millis());
+        
     
     println!("Overall {}ms", now_all.elapsed().as_millis())
 }
