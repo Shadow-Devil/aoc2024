@@ -68,11 +68,11 @@ mod tests {
     #[test]
     fn check_part1() {
         assert_eq!(part1(FILE_PATH_SAMPLE), 3749);
-        assert_eq!(part1(FILE_PATH), 5409);
+        assert_eq!(part1(FILE_PATH), 12553187650171);
     }
     #[test]
     fn check_part2() {
-        assert_eq!(part2(FILE_PATH_SAMPLE), 6);
-        assert_eq!(part2(FILE_PATH), 2022);
+        assert_eq!(part2(FILE_PATH_SAMPLE), 11387);
+        assert_eq!(part2(FILE_PATH), 96779702119491);
     }
 }
