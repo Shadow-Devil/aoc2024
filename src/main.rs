@@ -1,5 +1,6 @@
 use std::time::Instant;
 
+mod util;
 mod day01;
 mod day02;
 mod day03;
@@ -7,7 +8,7 @@ mod day04;
 mod day05;
 mod day06;
 mod day07;
-mod util;
+mod day08;
 
 fn main() {
     let now_all = Instant::now();
@@ -48,6 +49,11 @@ fn main() {
     //Slow (30 sec in dev run, 7 sec in release)
     //now = Instant::now();
     //println!("Day07 Part2: {} ({}ms)", day07::part2(day07::FILE_PATH), now.elapsed().as_millis());
+
+    now = Instant::now();
+    println!("Day08 Part1: {} ({}ms)", day08::part1(day08::FILE_PATH), now.elapsed().as_millis());
+    now = Instant::now();
+    println!("Day08 Part2: {} ({}ms)", day08::part2(day08::FILE_PATH), now.elapsed().as_millis());
         
     
     println!("Overall {}ms", now_all.elapsed().as_millis())
