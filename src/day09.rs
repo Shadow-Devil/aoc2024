@@ -87,7 +87,6 @@ pub(crate) fn part2(file_path: &str) -> u64 {
     while !disk_map.is_empty() {
         match disk_map[0] {
             Block::File(len, idx) => {
-                println!("Adding {} {} {}", len, idx, pos);
                 for _x in 0..len {
                     result += idx * pos;
                     pos += 1;
@@ -105,7 +104,6 @@ pub(crate) fn part2(file_path: &str) -> u64 {
                     match disk_map[i_end] {
                         Block::File(len1, idx) => {
                             if len >= len1 {
-                                println!("Adding {} {} {}", len1, idx, pos);
                                 for _x in 0..len1 {
                                     result += idx * pos;
                                     pos += 1;
@@ -116,7 +114,6 @@ pub(crate) fn part2(file_path: &str) -> u64 {
                             }
                         }
                         Block::Free(_) => {
-                            //disk_map.remove(i_end);
                         }
                     }
                     i_end -= 1;
