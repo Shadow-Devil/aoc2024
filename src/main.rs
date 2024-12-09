@@ -9,6 +9,7 @@ mod day05;
 mod day06;
 mod day07;
 mod day08;
+mod day09;
 
 fn main() {
     let now_all = Instant::now();
@@ -54,7 +55,12 @@ fn main() {
     println!("Day08 Part1: {} ({}ms)", day08::part1(day08::FILE_PATH), now.elapsed().as_millis());
     now = Instant::now();
     println!("Day08 Part2: {} ({}ms)", day08::part2(day08::FILE_PATH), now.elapsed().as_millis());
-        
+
+    now = Instant::now();
+    println!("Day09 Part1: {} ({}ms)", day09::part1(day09::FILE_PATH), now.elapsed().as_millis());
+    now = Instant::now();
+    println!("Day09 Part2: {} ({}ms)", day09::part2(day09::FILE_PATH), now.elapsed().as_millis());
+
     
     println!("Overall {}ms", now_all.elapsed().as_millis())
 }
