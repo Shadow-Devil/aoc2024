@@ -1,6 +1,5 @@
 use crate::read_lines;
 use crate::util::{read_input, Point};
-use itertools::Itertools;
 use std::collections::{BinaryHeap, HashMap, HashSet};
 use std::iter::Iterator;
 
@@ -21,11 +20,11 @@ pub(crate) fn part1(file_path: &str) -> usize {
 
         while let Some(p) = queue.pop() {
             for neighbor in neighbors(&points, &p) {
-                if !visited.contains(&neighbor) { 
+                if !visited.contains(&neighbor) {
                     visited.insert(neighbor);
                     queue.push(neighbor);
                 }
-                if points[&neighbor] == 9 { 
+                if points[&neighbor] == 9 {
                     reachable_top.insert(neighbor);
                 }
             }
@@ -101,11 +100,11 @@ mod tests {
     #[test]
     fn check_part1() {
         assert_eq!(part1(FILE_PATH_SAMPLE), 36);
-        assert_eq!(part1(FILE_PATH), 6211348208140);
+        assert_eq!(part1(FILE_PATH), 607);
     }
     #[test]
     fn check_part2() {
-        assert_eq!(part2(FILE_PATH_SAMPLE), 2858);
-        assert_eq!(part2(FILE_PATH), 6239783302560);
+        assert_eq!(part2(FILE_PATH_SAMPLE), 81);
+        assert_eq!(part2(FILE_PATH), 1384);
     }
 }
