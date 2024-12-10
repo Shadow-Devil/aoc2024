@@ -1,42 +1,13 @@
 use crate::read_lines;
-use crate::util::read_input;
+use crate::util::{read_input, Point};
 use itertools::Itertools;
 use std::collections::{HashMap, HashSet};
 use std::iter::Iterator;
-use std::ops;
 
 #[allow(unused)]
 pub(crate) const FILE_PATH: &str = "input/day08.txt";
 #[allow(unused)]
 pub(crate) const FILE_PATH_SAMPLE: &str = "input/day08_sample.txt";
-
-#[derive(Debug, Eq, PartialEq, Hash, Copy, Clone)]
-struct Point {
-    x: i32,
-    y: i32,
-}
-
-impl ops::Sub for Point {
-    type Output = Point;
-
-    fn sub(self, other: Self) -> Self::Output {
-        Point {
-            x: self.x - other.x,
-            y: self.y - other.y
-        }
-    }
-}
-
-impl ops::Add for Point {
-    type Output = Point;
-
-    fn add(self, other: Self) -> Self::Output {
-        Point {
-            x: self.x + other.x,
-            y: self.y + other.y
-        }
-    }
-}
 
 pub(crate) fn part1(file_path: &str) -> u32 {
     let (antenna_groups, max) = parse(file_path);

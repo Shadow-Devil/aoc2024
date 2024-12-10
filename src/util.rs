@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, ops};
 
 pub(crate) fn read_input(file_path: &str) -> String {
     fs::read_to_string(file_path).unwrap()
@@ -41,3 +41,31 @@ pub(crate) trait Countable: Iterator {
 }
 
 impl<T> Countable for T where T: Iterator {}
+
+#[derive(Debug, Eq, PartialEq, Hash, Copy, Clone, Ord, PartialOrd)]
+pub(crate) struct Point {
+    pub(crate) x: i32,
+    pub(crate) y: i32,
+}
+
+impl ops::Sub for Point {
+    type Output = Point;
+
+    fn sub(self, other: Self) -> Self::Output {
+        Point {
+            x: self.x - other.x,
+            y: self.y - other.y
+        }
+    }
+}
+
+impl ops::Add for Point {
+    type Output = Point;
+
+    fn add(self, other: Self) -> Self::Output {
+        Point {
+            x: self.x + other.x,
+            y: self.y + other.y
+        }
+    }
+}

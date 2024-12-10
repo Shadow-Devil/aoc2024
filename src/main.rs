@@ -1,5 +1,7 @@
+use std::fmt::Display;
 use std::time::Instant;
 
+mod util;
 mod day01;
 mod day02;
 mod day03;
@@ -9,7 +11,7 @@ mod day06;
 mod day07;
 mod day08;
 mod day09;
-mod util;
+mod day10;
 
 fn main() {
     let now_all = Instant::now();
@@ -31,11 +33,13 @@ fn main() {
     print_day("Day08 Part2", day08::part2, day08::FILE_PATH);
     print_day("Day09 Part1", day09::part1, day09::FILE_PATH);
     //print_day("Day09 Part2", day09::part2, day09::FILE_PATH);
+    print_day("Day10 Part1", day10::part1, day10::FILE_PATH);
+    print_day("Day10 Part2", day10::part2, day10::FILE_PATH);
     
     println!("Overall {}ms", now_all.elapsed().as_millis())
 }
 
-fn print_day<R1: std::fmt::Display>(
+fn print_day<R1: Display>(
     day_and_part: &str,
     part1: fn(&str) -> R1,
     file_path: &str,

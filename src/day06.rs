@@ -1,4 +1,4 @@
-use crate::util::{read_input, Countable};
+use crate::util::{read_input, Countable, Point};
 use std::collections::HashSet;
 use std::iter::Iterator;
 
@@ -7,11 +7,6 @@ pub(crate) const FILE_PATH: &str = "input/day06.txt";
 #[allow(unused)]
 pub(crate) const FILE_PATH_SAMPLE: &str = "input/day06_sample.txt";
 
-#[derive(Eq, Hash, PartialEq, Clone, Debug, Copy, PartialOrd, Ord)]
-struct Point {
-    x: i32,
-    y: i32,
-}
 
 #[derive(Eq, Hash, PartialEq, Debug, Clone, Copy, PartialOrd, Ord)]
 struct PointWithDir {
