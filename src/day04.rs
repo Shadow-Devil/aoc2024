@@ -26,7 +26,7 @@ pub(crate) fn part1(file_path: &str) -> u32 {
 }
 
 fn parse_grid(file_path: &str) -> Vec<Vec<u32>> {
-    let mut grid: Vec<Vec<u32>> = vec![];
+    let mut grid = Vec::new();
     for (x, line) in read_lines!(file_path).enumerate() {
         grid.push(Vec::new());
         for (_y, c) in line.chars().enumerate() {
@@ -75,7 +75,6 @@ pub(crate) fn part2(file_path: &str) -> u32 {
         for y in 0..grid[x].len() {
             let tmp = find_word_part2(x, y, &grid);
             if tmp != 0 {
-                //println!("{} {}", x, y);
             }
             result += tmp;
         }

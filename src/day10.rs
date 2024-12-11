@@ -13,7 +13,7 @@ pub(crate) fn part1(file_path: &str) -> usize {
     let mut result = 0;
 
     for p in start_points {
-        let mut reachable_top: HashSet<Point> = HashSet::new();
+        let mut reachable_top = HashSet::new();
         let mut queue = Vec::from([p]);
 
         while let Some(p) = queue.pop() {

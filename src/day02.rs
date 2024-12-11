@@ -20,7 +20,7 @@ pub(crate) fn part2(file_path: &str) -> u32 {
             return true;
         }
         for i in 0..nums.len() {
-            let mut nums = nums.to_owned();
+            let mut nums = nums.clone();
             nums.remove(i);
             if solve(nums.iter().copied()) {
                 return true;

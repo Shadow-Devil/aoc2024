@@ -14,7 +14,7 @@ enum Block {
 
 pub(crate) fn part1(file_path: &str) -> u64 {
     let content = read_input(file_path);
-    let mut disk_map: Vec<Block> = Vec::with_capacity(content.len());
+    let mut disk_map = Vec::with_capacity(content.len());
     let mut idx = 0;
     let mut is_file = true;
 
@@ -68,7 +68,7 @@ pub(crate) fn part1(file_path: &str) -> u64 {
 
 pub(crate) fn part2(file_path: &str) -> u64 {
     let content = read_input(file_path);
-    let mut disk_map: Vec<Block> = Vec::with_capacity(content.len());
+    let mut disk_map = Vec::with_capacity(content.len());
     let mut idx = 0;
     let mut is_file = true;
 

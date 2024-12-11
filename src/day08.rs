@@ -9,7 +9,7 @@ pub(crate) const FILE_PATH: &str = "input/day08.txt";
 #[allow(unused)]
 pub(crate) const FILE_PATH_SAMPLE: &str = "input/day08_sample.txt";
 
-pub(crate) fn part1(file_path: &str) -> u32 {
+pub(crate) fn part1(file_path: &str) -> usize {
     let (antenna_groups, max) = parse(file_path);
     let mut antinodes: HashSet<Point> = HashSet::new();
 
@@ -21,7 +21,7 @@ pub(crate) fn part1(file_path: &str) -> u32 {
         }
     }
 
-    antinodes.len() as u32
+    antinodes.len()
 }
 
 fn parse(file_path: &str) -> (HashMap<char, Vec<Point>>, Point) {
@@ -53,7 +53,7 @@ fn in_grid(p: &Point, max: &Point) -> bool {
     p.x >= 0 && p.y >= 0 && p.x < max.x && p.y < max.y
 }
 
-pub(crate) fn part2(file_path: &str) -> u32 {
+pub(crate) fn part2(file_path: &str) -> usize {
     let (antenna_groups, max) = parse(file_path);
     let mut antinodes: HashSet<Point> = HashSet::new();
 
@@ -74,7 +74,7 @@ pub(crate) fn part2(file_path: &str) -> u32 {
             }
         }
     }
-    antinodes.len() as u32
+    antinodes.len()
 }
 
 #[cfg(test)]

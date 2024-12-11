@@ -22,19 +22,19 @@ enum Direction {
     West,
 }
 
-pub(crate) fn part1(file_path: &str) -> u32 {
+pub(crate) fn part1(file_path: &str) -> usize {
     let (obstacles, start, size) = parse(file_path);
 
-    run_simulation(&obstacles, start, &size).unwrap().len() as u32
+    run_simulation(&obstacles, start, &size).unwrap().len()
 }
 
 fn parse(file_path: &str) -> (Vec<Point>, PointWithDir, Point) {
     let content = read_input(file_path);
 
-    let mut obstacles: Vec<Point> = Vec::new();
-    let mut start: PointWithDir = PointWithDir { point: Point { x: -1, y: -1 }, direction: Direction::North };
+    let mut obstacles = Vec::new();
+    let mut start = PointWithDir { point: Point { x: -1, y: -1 }, direction: Direction::North };
 
-    let size: Point = Point { x: content.lines().count() as i32, y: content.lines().last().unwrap().len() as i32 };
+    let size = Point { x: content.lines().count() as i32, y: content.lines().last().unwrap().len() as i32 };
 
     for (y, line) in content.lines().enumerate() {
         for (x, c) in line.chars().enumerate() {

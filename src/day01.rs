@@ -8,8 +8,8 @@ pub(crate) const FILE_PATH: &str = "input/day01.txt";
 pub(crate) const FILE_PATH_SAMPLE: &str = "input/day01_sample.txt";
 
 pub(crate) fn part1(file_path: &str) -> u32 {
-    let mut left: Vec<u32> = Vec::new();
-    let mut right: Vec<u32> = Vec::new();
+    let mut left = Vec::new();
+    let mut right = Vec::new();
 
     for mut iter in read_lines_u32!(file_path) {
         insert_sorted(&mut left, iter.next().unwrap());
@@ -19,8 +19,8 @@ pub(crate) fn part1(file_path: &str) -> u32 {
 }
 
 pub(crate) fn part2(file_path: &str) -> u32 {
-    let mut left: HashMap<u32, u32> = HashMap::new();
-    let mut right: HashMap<u32, u32> = HashMap::new();
+    let mut left = HashMap::new();
+    let mut right = HashMap::new();
 
     for mut iter in read_lines_u32!(file_path) {
         insert_plus_one(&mut left, iter.next().unwrap());
