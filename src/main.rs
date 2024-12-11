@@ -37,7 +37,7 @@ fn main() {
     print_day("Day10 Part1", day10::part1, day10::FILE_PATH);
     print_day("Day10 Part2", day10::part2, day10::FILE_PATH);
     print_day("Day11 Part1", day11::part1, day11::FILE_PATH);
-    print_day("Day11 Part2", day11::part2, day11::FILE_PATH);
+    //print_day("Day11 Part2", day11::part2, day11::FILE_PATH);
     
     println!("Overall {}ms", now_all.elapsed().as_millis())
 }

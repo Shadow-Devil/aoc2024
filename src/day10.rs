@@ -1,6 +1,6 @@
 use crate::read_lines;
 use crate::util::{read_input, Point};
-use std::collections::{BinaryHeap, HashMap, HashSet};
+use std::collections::{HashMap, HashSet};
 use std::iter::Iterator;
 
 #[allow(unused)]
@@ -14,20 +14,13 @@ pub(crate) fn part1(file_path: &str) -> usize {
 
     for p in start_points {
         let mut reachable_top: HashSet<Point> = HashSet::new();
-        let mut visited: HashSet<Point> = HashSet::new();
-        let mut queue: BinaryHeap<Point> = BinaryHeap::new();
-        queue.push(p);
+        let mut queue = Vec::from([p]);
 
         while let Some(p) = queue.pop() {
-            for neighbor in neighbors(&points, &p) {
-                if !visited.contains(&neighbor) {
-                    visited.insert(neighbor);
-                    queue.push(neighbor);
-                }
-                if points[&neighbor] == 9 {
-                    reachable_top.insert(neighbor);
-                }
+            if points[&p] == 9 {
+                reachable_top.insert(p);
             }
+            queue.append(&mut neighbors(&points, &p));
         }
         result += reachable_top.len();
     }
@@ -75,16 +68,13 @@ pub(crate) fn part2(file_path: &str) -> u64 {
 
     for p in start_points {
         let mut paths = 0;
-        let mut queue: BinaryHeap<Point> = BinaryHeap::new();
-        queue.push(p);
+        let mut queue = Vec::from([p]);
 
         while let Some(p) = queue.pop() {
-            for neighbor in neighbors(&points, &p) {
-                queue.push(neighbor);
-                if points[&neighbor] == 9 {
-                    paths += 1;
-                }
+            if points[&p] == 9 {
+                paths += 1;
             }
+            queue.append(&mut neighbors(&points, &p));
         }
         result += paths;
     }
