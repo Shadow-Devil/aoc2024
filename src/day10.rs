@@ -86,7 +86,6 @@ pub(crate) fn part2(file_path: &str) -> u64 {
                 }
             }
         }
-        println!("{:?}", paths);
         result += paths;
     }
 
