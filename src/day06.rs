@@ -156,7 +156,7 @@ pub(crate) fn part2(file_path: &str) -> u32 {
         let mut obs = obstacles.clone();
         obs.insert(obs.binary_search(o).unwrap_err(), *o);
         run_simulation(&obs, start.clone(), &size).is_none() as u32
-    }).sum::<u32>()
+    }).sum()
 }
 
 
