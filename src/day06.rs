@@ -1,6 +1,8 @@
-use crate::util::{read_input, Countable, Point};
+use rayon::iter::ParallelIterator;
+use crate::util::{read_input, Point};
 use std::collections::HashSet;
 use std::iter::Iterator;
+use rayon::iter::IntoParallelRefIterator;
 
 #[allow(unused)]
 pub(crate) const FILE_PATH: &str = "input/day06.txt";
@@ -149,11 +151,12 @@ pub(crate) fn part2(file_path: &str) -> u32 {
 
     let potential_obstacles = run_simulation(&obstacles, start.clone(), &size).unwrap();
 
-    potential_obstacles.iter().filter(|o| !(o.x == start.point.x && o.y == start.point.y)).map(|o| {
+
+    potential_obstacles.par_iter().filter(|o| !(o.x == start.point.x && o.y == start.point.y)).map(|o| {
         let mut obs = obstacles.clone();
         obs.insert(obs.binary_search(o).unwrap_err(), *o);
-        run_simulation(&obs, start.clone(), &size)
-    }).count_all(|x| x.is_none()) as u32
+        if run_simulation(&obs, start.clone(), &size).is_none() { 1 } else { 0 }
+    }).sum::<u32>()
 }
 
 
