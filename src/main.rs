@@ -28,7 +28,7 @@ fn main() {
     print_day("Day05 Part2", day05::part2, day05::FILE_PATH);
     print_day("Day06 Part1", day06::part1, day06::FILE_PATH);
     print_day("Day06 Part2", day06::part2, day06::FILE_PATH);
-    //print_day("Day07 Part1", day07::part1, day07::FILE_PATH);
+    print_day("Day07 Part1", day07::part1, day07::FILE_PATH);
     //print_day("Day07 Part2", day07::part2, day07::FILE_PATH);
     print_day("Day08 Part1", day08::part1, day08::FILE_PATH);
     print_day("Day08 Part2", day08::part2, day08::FILE_PATH);
