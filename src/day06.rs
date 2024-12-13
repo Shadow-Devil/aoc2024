@@ -155,7 +155,7 @@ pub(crate) fn part2(file_path: &str) -> u32 {
     potential_obstacles.par_iter().filter(|o| !(o.x == start.point.x && o.y == start.point.y)).map(|o| {
         let mut obs = obstacles.clone();
         obs.insert(obs.binary_search(o).unwrap_err(), *o);
-        if run_simulation(&obs, start.clone(), &size).is_none() { 1 } else { 0 }
+        run_simulation(&obs, start.clone(), &size).is_none() as u32
     }).sum::<u32>()
 }
 
